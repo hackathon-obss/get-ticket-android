@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,
                 0, mLocationListener);
 
         final Button button = findViewById(R.id.button);
