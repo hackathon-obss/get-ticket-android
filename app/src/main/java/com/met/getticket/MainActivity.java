@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String UPDATE_LOCATION_URL = "http://54.171.171.134:5000/eta";
     private final String[] comboOptions = new String[]{"1", "2", "3", "4"};
     private RequestQueue requestQueue;
-    private boolean clicked = false;
+    private volatile boolean clicked = false;
     private User user;
     private Random random = new Random();
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Longtitude", Double.toString(location.getLongitude()));
 
             if(clicked){
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, UPDATE_LOCATION_URL,
+                StringRequest stringRequest = new StringRequest(Request.Method.PUT, UPDATE_LOCATION_URL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> map = new HashMap<>();
                         Random random = new Random();
-                        map.put("uid", Integer.toString(random.nextInt(1000)));
+                        map.put("uid", user.getUid());
                         map.put("eta", Integer.toString(random.nextInt(15)));
 
                         return map;
