@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         if(tempResponse[0].equals("")){
             return null;
         }else {
-            duration = JsonPath.read(tempResponse[0], "$.routes[2][1].duration.text");
+            duration = JsonPath.read(tempResponse[0], "$.routes[0].legs[0].duration.text");
         }
 
         return duration.substring(0,duration.indexOf(" "));
