@@ -1,6 +1,7 @@
 package com.met.getticket;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         user = new User();
         Random random = new Random();
         user.setUid(random.nextInt(Integer.MAX_VALUE) + "");
+        user.setAge((random.nextInt(65)+20) + "");
 
         final Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter adapter = new ArrayAdapter(this,
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                                         2000,
                                         0, new ETAUpdater(MainActivity.this, user));
 
+                                /*Intent intent = new Intent(MainActivity.this, LineActivity.class);
+                                startActivity(intent);*/
                             }
                         },
                         null) {

@@ -9,6 +9,23 @@ public class User {
     private String eta1;
     private String eta2;
     private String sube;
+    private String age;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getUid() {
         return id;
