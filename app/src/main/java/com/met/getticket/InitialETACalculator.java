@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class ETACalculator implements LocationListener {
+public class InitialETACalculator implements LocationListener {
     private final static String GET_ETA =
             "https://maps.googleapis.com/maps/api/directions/json?origin=%1$s&destination=%2$s"
                     + "&mode=%3$s";
@@ -27,7 +27,7 @@ public class ETACalculator implements LocationListener {
     private final Context mContext;
     private final User mUser;
 
-    public ETACalculator(Context context, User user) {
+    public InitialETACalculator(Context context, User user) {
         mContext = context;
         mUser = user;
     }

@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000,
-                0, new ETACalculator(this, user));
+                0, new InitialETACalculator(this, user));
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000,
-                0, new ETACalculator(this, user));
+                0, new InitialETACalculator(this, user));
 
         final Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
