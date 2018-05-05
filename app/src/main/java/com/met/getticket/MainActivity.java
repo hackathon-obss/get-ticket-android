@@ -28,17 +28,23 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String GET_TICKET_URL = "http://54.171.171.134:5000/user";
     private final static String UPDATE_LOCATION_URL = "http://54.171.171.134:5000/eta";
+    private final static String GET_ETA = "https://maps.googleapis.com/maps/api/directions/json?origin=%1$s&destination=%2$s&mode=%3$s";
     private final String[] comboOptions = new String[]{"1", "2", "3", "4"};
     private RequestQueue requestQueue;
     private volatile boolean clicked = false;
     private User user;
     private Random random = new Random();
+    private String sube1 = "41.085342,29.009800";
+    private String sube2 = "41.079708,29.007711";
+    private Location lastLocation;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
             Log.d("Latitude", Double.toString(location.getLatitude()));
             Log.d("Longtitude", Double.toString(location.getLongitude()));
+
+            lastLocation = location;
 
             if(clicked){
                 StringRequest stringRequest = new StringRequest(Request.Method.PUT, UPDATE_LOCATION_URL,
@@ -60,6 +66,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(stringRequest);
+
+                String URI = String.format(GET_ETA,
+                        lastLocation.getLatitude()+","+lastLocation.getLongitude(),
+                        sube1, "walking");
+
+                StringRequest myReq = new StringRequest(Request.Method.GET,
+                        URI,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("ResponseAAAAA", response.toString());
+                            }
+                        },null);
+                requestQueue.add(myReq);
             }
         }
 
