@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GetTicket</string>
+    <string name="islemTipi1">1</string>
+    <string name="islemTipi2">2</string>
+    <string name="islemTipi3">3</string>
+    <string name="islemTipi4">4</string>
+    <string name="button">Button</string>
 </resources>
