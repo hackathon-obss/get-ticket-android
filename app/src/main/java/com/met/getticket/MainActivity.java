@@ -25,8 +25,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int SUBE1 = 1;
-    private static final int SUBE2 = 2;
+
     private final static String GET_TICKET_URL = "http://54.171.171.134:5000/user";
     private final static String UPDATE_LOCATION_URL = "http://54.171.171.134:5000/eta";
     private final static String GET_ETA = "https://maps.googleapis.com/maps/api/directions/json?origin=%1$s&destination=%2$s&mode=%3$s";
@@ -67,6 +66,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(stringRequest);
+
+                String URI = String.format(GET_ETA,
+                        lastLocation.getLatitude()+","+lastLocation.getLongitude(),
+                        sube1, "walking");
+
+                StringRequest myReq = new StringRequest(Request.Method.GET,
+                        URI,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.d("ResponseAAAAA", response.toString());
+                            }
+                        },null);
+                requestQueue.add(myReq);
             }
         }
 
@@ -130,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> map = new HashMap<>();
                         map.put("uid", user.getUid());
-                        map.put("eta1", getETA(SUBE1));
-                        map.put("eta2", getETA(SUBE2));
+                        map.put("eta1", Integer.toString(random.nextInt(15)));
+                        map.put("eta2", Integer.toString(random.nextInt(15)));
                         map.put("operation", spinner.getSelectedItem().toString());
                         return map;
                     }
@@ -139,29 +152,5 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
-    }
-    public String getETA(int sube){
-
-        final boolean[] isOK = new boolean[1];
-        isOK[0] = false;
-
-        while(!isOK[0]){
-            String URI = String.format(GET_ETA,
-                    lastLocation.getLatitude()+","+lastLocation.getLongitude(),
-                    sube == SUBE1 ? sube1 : sube2, "walking");
-
-            StringRequest myReq = new StringRequest(Request.Method.GET,
-                    URI,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("Response", response.toString());
-
-                            if(!response.contains("error_message")) isOK[0] = true;
-                        }
-                    },null);
-            requestQueue.add(myReq);
-        }
-        return "";
     }
 }
