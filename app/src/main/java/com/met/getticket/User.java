@@ -6,7 +6,7 @@ package com.met.getticket;
 
 public class User {
     private String id;
-    private int sube;
+    private String sube;
 
     public String getUid() {
         return id;
@@ -16,11 +16,11 @@ public class User {
         this.id = uid;
     }
 
-    public int getSube() {
+    public String getSube() {
         return sube;
     }
 
-    public void setSube(int sube) {
+    public void setSube(String sube) {
         this.sube = sube;
     }
 }

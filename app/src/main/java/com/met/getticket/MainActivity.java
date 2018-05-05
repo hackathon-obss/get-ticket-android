@@ -20,9 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, String> map = new HashMap<>();
                         Random random = new Random();
                         map.put("uid", user.getUid());
-                        map.put("eta", getETA(user.getSube()));
+                        map.put("eta", Integer.toString(random.nextInt(15)));
 
                         return map;
                     }
@@ -146,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
     public String getETA(int sube){
 
         final boolean[] isOK = new boolean[1];
-        final String[] tempResponse = new String[1];
-
         isOK[0] = false;
 
         while(!isOK[0]){
@@ -162,22 +157,11 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(String response) {
                             Log.d("Response", response.toString());
 
-                            if(!response.contains("error_message")){
-                                isOK[0] = true;
-                                tempResponse[0] = response;
-                            }
+                            if(!response.contains("error_message")) isOK[0] = true;
                         }
                     },null);
-            if(isOK[0]) break;
             requestQueue.add(myReq);
         }
-        String duration = null;
-        try{
-            JSONObject jsonObj = new JSONObject(tempResponse[0]);
-            duration = jsonObj.getJSONObject("routes").getJSONObject("legs").getJSONObject("duration").getString("text");
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-        return duration.substring(0,duration.indexOf(" "));
+        return "";
     }
 }
