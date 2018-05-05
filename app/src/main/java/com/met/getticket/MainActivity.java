@@ -19,17 +19,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.jayway.jsonpath.JsonPath;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SUBE1 = 1;
@@ -68,11 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, String> map = new HashMap<>();
                         Random random = new Random();
                         map.put("uid", user.getUid());
-
-                        String ETA;
-                        while((ETA = getETA(user.getSube())) == null);
-
-                        map.put("eta", ETA);
+                        map.put("eta", getETA(user.getSube()));
 
                         return map;
                     }
@@ -141,15 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> map = new HashMap<>();
                         map.put("uid", user.getUid());
-
-                        String sube1ETA;
-                        while((sube1ETA = getETA(SUBE1)) == null);
-
-                        map.put("eta1", sube1ETA);
-
-                        String sube2ETA;
-                        while((sube2ETA = getETA(SUBE2)) == null);
-
+                        map.put("eta1", getETA(SUBE1));
                         map.put("eta2", getETA(SUBE2));
                         map.put("operation", spinner.getSelectedItem().toString());
                         return map;
@@ -161,38 +145,39 @@ public class MainActivity extends AppCompatActivity {
     }
     public String getETA(int sube){
 
+        final boolean[] isOK = new boolean[1];
         final String[] tempResponse = new String[1];
-        tempResponse[0] = "";
 
-        String URI = String.format(GET_ETA,
-                lastLocation.getLatitude()+","+lastLocation.getLongitude(),
-                sube == SUBE1 ? sube1 : sube2, "walking");
+        isOK[0] = false;
 
-        StringRequest myReq = new StringRequest(Request.Method.GET,
-                URI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response.toString());
+        while(!isOK[0]){
+            String URI = String.format(GET_ETA,
+                    lastLocation.getLatitude()+","+lastLocation.getLongitude(),
+                    sube == SUBE1 ? sube1 : sube2, "walking");
 
-                        if(!response.contains("error_message")){
-                            tempResponse[0] = response;
+            StringRequest myReq = new StringRequest(Request.Method.GET,
+                    URI,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("Response", response.toString());
+
+                            if(!response.contains("error_message")){
+                                isOK[0] = true;
+                                tempResponse[0] = response;
+                            }
                         }
-                    }
-                },null);
-
-        requestQueue.add(myReq);
-
-        if(tempResponse[0].contains("error_message")) return null;
-
-        String duration = "";
-
-        if(tempResponse[0].equals("")){
-            return null;
-        }else {
-            duration = JsonPath.read(tempResponse[0], "$.routes[2][1].duration.text");
+                    },null);
+            if(isOK[0]) break;
+            requestQueue.add(myReq);
         }
-
+        String duration = null;
+        try{
+            JSONObject jsonObj = new JSONObject(tempResponse[0]);
+            duration = jsonObj.getJSONObject("routes").getJSONObject("legs").getJSONObject("duration").getString("text");
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         return duration.substring(0,duration.indexOf(" "));
     }
 }
