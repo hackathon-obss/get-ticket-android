@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new Thread(new Worker(spinner.getSelectedItem().toString()));
+                new Thread(new Worker(spinner.getSelectedItem().toString())).start();
             }
         });
     }
