@@ -6,30 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.met.getticket.MainActivity">
 
-    <Spinner
-        android:id="@+id/spinner"
+    <Spinner android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="96dp" />
+        />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="#f44b42"
-        android:text="GET TICKET" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
-        android:text="Choose Your Activity" />
-
+        android:background="#AF3800"
+        android:layout_alignEnd="@+id/spinner"
+        android:layout_below="@+id/spinner"
+        android:layout_marginTop="33dp"
+        />
 </RelativeLayout>
