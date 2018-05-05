@@ -25,7 +25,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private final static String GET_TICKET_URL = "http://54.171.171.134:5000/user";
-    private final static String UPDATE_LOCATION_URL = "http://54.171.171.134:5000/eta";
 
     private final String[] comboOptions = new String[]{"1", "2", "3", "4"};
     private User user;
@@ -71,6 +70,26 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(String response) {
                                 Log.d("sube", response);
                                 user.setSube(response);
+                                LocationManager locationManager =
+                                        (LocationManager) getSystemService(LOCATION_SERVICE);
+
+                                if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                                        Manifest.permission.ACCESS_FINE_LOCATION)
+                                        != PackageManager.PERMISSION_GRANTED
+                                        && ActivityCompat.checkSelfPermission(MainActivity.this,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                                        != PackageManager.PERMISSION_GRANTED) {
+
+                                    return;
+                                }
+
+                                locationManager.requestLocationUpdates(
+                                        LocationManager.NETWORK_PROVIDER, 2000,
+                                        0, new ETAUpdater(MainActivity.this, user));
+                                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                                        2000,
+                                        0, new ETAUpdater(MainActivity.this, user));
+
                             }
                         },
                         null) {
