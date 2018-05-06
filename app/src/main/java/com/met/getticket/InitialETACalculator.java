@@ -22,8 +22,8 @@ public class InitialETACalculator implements LocationListener {
     private final static String GET_ETA =
             "https://maps.googleapis.com/maps/api/directions/json?origin=%1$s&destination=%2$s"
                     + "&mode=%3$s";
-    private final static String SUBE_1_LOCATION = "41.085342,29.009800";
-    private final static String SUBE_2_LOCATION = "41.079708,29.007711";
+    private final static String SUBE_1_LOCATION = "41.079064, 29.004653";
+    private final static String SUBE_2_LOCATION = "41.083858, 29.004442";
     private final Context mContext;
     private final User mUser;
 
