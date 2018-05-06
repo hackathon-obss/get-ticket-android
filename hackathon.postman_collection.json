@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "e6854968-a275-41a4-a8d5-759aaf10cde9",
+		"name": "hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "54.171.171.134:5000/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta1",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta2",
+							"value": "10",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "operation",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "55",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://54.171.171.134:5000/user",
+					"protocol": "http",
+					"host": [
+						"54",
+						"171",
+						"171",
+						"134"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta1",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta2",
+							"value": "10",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "operation",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/eta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta",
+							"value": "20",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/eta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"eta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta1",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta2",
+							"value": "10",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "operation",
+							"value": "operation",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/user?uid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/lineNo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/lineNo?uid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lineNo"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://54.171.171.134:5000/eta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uid",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "eta",
+							"value": "20",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://54.171.171.134:5000/eta",
+					"protocol": "http",
+					"host": [
+						"54",
+						"171",
+						"171",
+						"134"
+					],
+					"port": "5000",
+					"path": [
+						"eta"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
