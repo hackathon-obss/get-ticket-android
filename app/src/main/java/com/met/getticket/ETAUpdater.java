@@ -47,7 +47,7 @@ public class ETAUpdater implements LocationListener {
 
     private void findAndUpdateEta(Location origin, final String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        String URI = String.format(GET_ETA, origin.getLongitude() + "," + origin.getLatitude(),
+        String URI = String.format(GET_ETA, origin.getLatitude() + "," + origin.getLongitude(),
                 url, "walking");
 
         StringRequest myReq = new StringRequest(Request.Method.GET,
@@ -55,15 +55,15 @@ public class ETAUpdater implements LocationListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        InputStream inputStream = mContext.getResources().openRawResource(
+                        /*InputStream inputStream = mContext.getResources().openRawResource(
                                 R.raw.json);
                         String content = new Scanner(inputStream).useDelimiter(
-                                "\\Z").next();
+                                "\\Z").next();*/
                         try {
-                            String duration = JsonPath.read(content,
+                            String duration = JsonPath.read(response,
                                     "$.routes[0].legs[0].duration.text");
                             StringTokenizer stringTokenizer = new StringTokenizer(duration, " ");
-                            updateEta(duration);
+                            updateEta(stringTokenizer.nextToken());
                         } catch (PathNotFoundException ex) {
                         }
                     }

@@ -40,7 +40,7 @@ public class InitialETACalculator implements LocationListener {
 
     private void findAndSetEta(Location origin, final String url, final User user) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        String URI = String.format(GET_ETA, origin.getLongitude() + "," + origin.getLatitude(),
+        String URI = String.format(GET_ETA, origin.getLatitude() + "," + origin.getLongitude(),
                 url, "walking");
 
         StringRequest myReq = new StringRequest(Request.Method.GET,
@@ -48,12 +48,12 @@ public class InitialETACalculator implements LocationListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        InputStream inputStream = mContext.getResources().openRawResource(
+                        /*InputStream inputStream = mContext.getResources().openRawResource(
                                 R.raw.json);
                         String content = new Scanner(inputStream).useDelimiter(
-                                "\\Z").next();
+                                "\\Z").next();*/
                         try {
-                            String duration = JsonPath.read(content,
+                            String duration = JsonPath.read(response,
                                     "$.routes[0].legs[0].duration.text");
                             StringTokenizer stringTokenizer = new StringTokenizer(duration, " ");
                             if(url.equals(SUBE_1_LOCATION)) {
