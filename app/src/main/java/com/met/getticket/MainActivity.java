@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -71,15 +73,26 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 Log.d("sube", response);
-                                user.setSube(response);
 
                                 locationManager.removeUpdates(initialListener);
+                                ETAUpdater updateListener = new ETAUpdater(MainActivity.this, user);
                                 locationManager.requestLocationUpdates(
                                         LocationManager.NETWORK_PROVIDER, 100,
-                                        0, new ETAUpdater(MainActivity.this, user));
+                                        0, updateListener);
 
 
                                 Intent intent = new Intent(MainActivity.this, LineActivity.class);
+                                locationManager.removeUpdates(updateListener);
+                                try{
+                                    JSONObject jsonObj = new JSONObject(response);
+                                    user.setSube(jsonObj.getString("sube"));
+                                    user.setLine(jsonObj.getString("lineNo"));
+
+                                } catch(Exception e){
+                                    e.printStackTrace();
+                                }
+
+                                intent.putExtra("user",user);
                                 startActivity(intent);
                             }
                         },
@@ -91,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         map.put("eta1", user.getEta1());
                         map.put("eta2", user.getEta2());
                         map.put("operation", spinner.getSelectedItem().toString());
+                        map.put("age", user.getAge());
                         return map;
                     }
                 };
