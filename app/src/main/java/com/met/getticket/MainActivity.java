@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         map.put("eta1", user.getEta1());
                         map.put("eta2", user.getEta2());
                         map.put("operation", spinner.getSelectedItem().toString());
+                        map.put("age", user.getAge());
                         return map;
                     }
                 };
