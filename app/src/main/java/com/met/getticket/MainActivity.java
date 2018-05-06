@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final String[] comboOptions = new String[]{"1", "2", "3", "4"};
     private User user;
-
+    private LocationManager locationManager;
+    private InitialETACalculator initialListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, comboOptions);
         spinner.setAdapter(adapter);
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -53,11 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
+        initialListener = new InitialETACalculator(this, user);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100,
+                0, initialListener );
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000,
-                0, new InitialETACalculator(this, user));
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000,
-                0, new InitialETACalculator(this, user));
 
         final Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,28 +72,15 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(String response) {
                                 Log.d("sube", response);
                                 user.setSube(response);
-                                LocationManager locationManager =
-                                        (LocationManager) getSystemService(LOCATION_SERVICE);
 
-                                if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                                        Manifest.permission.ACCESS_FINE_LOCATION)
-                                        != PackageManager.PERMISSION_GRANTED
-                                        && ActivityCompat.checkSelfPermission(MainActivity.this,
-                                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                                        != PackageManager.PERMISSION_GRANTED) {
-
-                                    return;
-                                }
-
+                                locationManager.removeUpdates(initialListener);
                                 locationManager.requestLocationUpdates(
-                                        LocationManager.NETWORK_PROVIDER, 2000,
-                                        0, new ETAUpdater(MainActivity.this, user));
-                                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                        2000,
+                                        LocationManager.NETWORK_PROVIDER, 100,
                                         0, new ETAUpdater(MainActivity.this, user));
 
-                                /*Intent intent = new Intent(MainActivity.this, LineActivity.class);
-                                startActivity(intent);*/
+
+                                Intent intent = new Intent(MainActivity.this, LineActivity.class);
+                                startActivity(intent);
                             }
                         },
                         null) {
