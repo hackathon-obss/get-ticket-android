@@ -5,4 +5,11 @@
     <string name="islemTipi3">3</string>
     <string name="islemTipi4">4</string>
     <string name="button">Button</string>
+    <string name="textview">TextView</string>
+    <string name="sequence">Sequence</string>
+    <string name="yasiniz">Yasiniz</string>
+    <string name="cancel">Cancel</string>
+    <string name="textview7">TextView</string>
+    <string name="sube_no">Şube No</string>
+    <string name="sira_no">Sıra No</string>
 </resources>

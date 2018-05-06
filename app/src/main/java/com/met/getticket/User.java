@@ -1,15 +1,26 @@
 package com.met.getticket;
 
+import java.io.Serializable;
+
 /**
  * Created by met on 5/5/2018.
  */
 
-public class User {
+public class User implements Serializable{
     private String id;
     private String eta1;
     private String eta2;
     private String sube;
     private String age;
+    private String line;
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
 
     public String getId() {
         return id;
