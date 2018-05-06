@@ -19,12 +19,14 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LineActivity extends AppCompatActivity {
+public class LineActivity extends AppCompatActivity implements UpdateCallBack {
 
     User user;
     private final static String DELETE_USER_URL = "http://54.171.171.134:5000/userx";
     private ETAUpdater updateListener;
     private LocationManager locationManager;
+    private TextView location;
+    private TextView line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,10 @@ public class LineActivity extends AppCompatActivity {
                 LocationManager.NETWORK_PROVIDER, 100,
                 0, updateListener);
 
-        final TextView line = findViewById(R.id.textView);
+
+        location = findViewById(R.id.textView9);
+
+        line = findViewById(R.id.textView);
         line.setText(user.getLine());
 
         final TextView age = findViewById(R.id.textView5);
@@ -81,5 +86,15 @@ public class LineActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
+    }
+
+    @Override
+    public void updateLocation(String l) {
+        location.setText(l);
+    }
+
+    @Override
+    public void updateLine(String l) {
+        line.setText(l);
     }
 }

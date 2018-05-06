@@ -1,5 +1,6 @@
 package com.met.getticket;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,6 +15,8 @@ import com.android.volley.toolbox.Volley;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -43,6 +46,13 @@ public class ETAUpdater implements LocationListener {
         } else {
             findAndUpdateEta(location, SUBE_2_LOCATION);
         }
+
+        try{
+            ((LineActivity) mContext).updateLocation(location.getLatitude()+","+location.getLongitude());
+        }catch (Exception e){
+
+        }
+
     }
 
     private void findAndUpdateEta(Location origin, final String url) {
@@ -83,6 +93,12 @@ public class ETAUpdater implements LocationListener {
                     @Override
                     public void onResponse(String response) {
                         Log.d("update_eta:", response);
+                        try{
+                            JSONObject jsonObj = new JSONObject(response);
+                            ((LineActivity) mContext).updateLine(jsonObj.getString("lineNo"));
+                        }catch(Exception e){
+
+                        }
                     }
                 },
                 null) {

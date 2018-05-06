@@ -12,4 +12,5 @@
     <string name="textview7">TextView</string>
     <string name="sube_no">Şube No</string>
     <string name="sira_no">Sıra No</string>
+    <string name="location">location</string>
 </resources>
