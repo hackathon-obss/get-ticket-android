@@ -29,8 +29,8 @@ public class ETAUpdater implements LocationListener {
             "https://maps.googleapis.com/maps/api/directions/json?origin=%1$s&destination=%2$s"
                     + "&mode=%3$s";
     private final static String UPDATE_ETA_URL = "http://54.171.171.134:5000/eta";
-    private final static String SUBE_1_LOCATION = "41.089183, 29.005068";
-    private final static String SUBE_2_LOCATION = "41.083858, 29.004442";
+    private final static String SUBE_1_LOCATION = "41.089183,29.005068";
+    private final static String SUBE_2_LOCATION = "41.083858,29.004442";
     private final Context mContext;
     private final User mUser;
 
